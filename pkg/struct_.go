@@ -16,6 +16,29 @@ type Person struct {
 	hobby string
 }
 
+func (p *Person) speak() string {
+	return "My name is " + p.name
+}
+
+func (p *Person) walk(where string) bool {
+	if where == "China.Henan.he" {
+		return true
+	}
+	return false
+}
+
+func CallMemberFunc() {
+	// 类似new一个对象，然后调用其成员方法
+	Leo := new(Person)
+	Leo.age = 27
+	Leo.name = "Leo"
+	Leo.hobby = "speak & walk"
+	var talk = Leo.speak()
+	fmt.Println(talk)
+	var walk = Leo.walk("China")
+	fmt.Println(walk)
+}
+
 // 链表、二叉树等数据结构
 // 用法可以参考LeetCode的二叉树和链表相关算法
 type TreeNode struct {
@@ -25,6 +48,7 @@ type TreeNode struct {
 }
 
 func StructDemo() {
+	// 三种定义初始化方式
 	s1 := new(Person)
 	s2 := &Person{}
 	s3 := Person{}
@@ -41,6 +65,40 @@ func StructDemo() {
 	s3.age = 25
 
 	fmt.Println(s1, s3)
+
+	// 初始化方式
+	var s4 Person
+	s4.name = "Iris"
+	s4.age = 17
+	s4.hobby = "TableBall"
+
+	fmt.Println(s4)
+
+	// 初始化方式
+	var s5 = Person{
+		"Kitty",
+		28,
+		"GunShooter",
+	}
+
+	fmt.Println(s5)
+
+	// 匿名初始化方式
+	s6 := &struct {
+		A1 int
+		A2 float64
+		A3 string
+		A4 struct{ A5 string }
+	}{
+		A1: 23,
+		A2: 23.23,
+		A3: "hello world",
+		A4: struct {
+			A5 string
+		}{"nihao"},
+	}
+
+	fmt.Println(s6)
 }
 
 // 结构体中的匿名字段、嵌套结构体
@@ -71,4 +129,3 @@ func (i *Inner) B(n int) int {
 	i.int1 = i.int + i.int1 + n
 	return i.int
 }
-

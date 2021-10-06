@@ -13,5 +13,5 @@ import (
 
 func main() {
 	//library.StrIndex()
-	pkg.CallMemberFunc_()
+	pkg.CallMemberFunc()
 }
