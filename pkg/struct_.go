@@ -129,3 +129,13 @@ func (i *Inner) B(n int) int {
 	i.int1 = i.int + i.int1 + n
 	return i.int
 }
+
+// 任意类型添加成员方法
+type MyString string
+
+func (s MyString) IsLargeString() bool {
+	if len(s) > 10 {
+		return true
+	}
+	return false
+}

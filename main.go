@@ -8,10 +8,11 @@
 package main
 
 import (
-	"golang-study/pkg"
+	"golang-study/library"
 )
 
 func main() {
 	//library.StrIndex()
-	pkg.CallMemberFunc()
+	//pkg.CallMemberFunc()
+	library.JsonDemo()
 }
