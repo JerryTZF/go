@@ -26,7 +26,7 @@ type Card struct {
 	Remark    string
 }
 
-func JsonDemo() {
+func Struct2Json() {
 	a1 := &Address{
 		Type:    "private",
 		City:    "Beijing",
@@ -69,5 +69,61 @@ func JsonDemo() {
 	if bytes, err := json.Marshal(s); err == nil {
 		fmt.Println(bytes)
 		fmt.Println(string(bytes))
+	}
+}
+
+// 通过tag重新命名
+type Stu struct {
+	Name   string  `json:"name"`            // 重命名Name -> name
+	Age    int     `json:"-"`               // 显式忽略该字段
+	Hobby  string  `json:"hobby,omitempty"` // 该字段有值的时候输出,反之(零值)的时候不输出
+	Weight float64 `json:"weight,string"`   // 最终输出值的类型与定义不符需要转换时
+}
+
+func RenameField() {
+	s := Stu{"Jerry", 12, "", 50.25}
+	if bytes, err := json.Marshal(s); err == nil {
+		fmt.Println(bytes)
+		fmt.Println(string(bytes)) // {"name":"Jerry"}
+	}
+}
+
+// json转struct
+type Opus struct {
+	Date  string
+	Title string
+}
+
+type Actress struct {
+	Name       string
+	Birthday   string
+	BirthPlace string
+	Opus       []Opus
+}
+
+func Json2Struct() {
+	jsonStr := `{
+      "name":"迪丽热巴",
+      "birthday":"1992-06-03",
+      "birthPlace":"新疆乌鲁木齐市",
+      "opus":[
+         {
+            "date":"2013",
+            "title":"《阿娜尔罕》"
+         },
+         {
+            "date":"2014",
+            "title":"《逆光之恋》"
+         },
+         {
+            "date":"2015",
+            "title":"《克拉恋人》"
+         }
+      ]
+   }`
+	jsonData := []byte(jsonStr)
+	s := new(Actress)
+	if err := json.Unmarshal(jsonData, s); err == nil {
+		fmt.Println(s)
 	}
 }
