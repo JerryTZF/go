@@ -9,6 +9,7 @@ package main
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"golang-study/pkg"
 	"io"
 	"log"
 	"net/http"
@@ -16,9 +17,9 @@ import (
 
 func main() {
 	//library.StrIndex()
-	//pkg.CallMemberFunc()
+	pkg.InterfaceDemo()
 	//library.Json2Struct()
-	demo()
+	//demo()
 }
 
 type Record struct {

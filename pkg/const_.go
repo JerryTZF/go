@@ -9,14 +9,14 @@ package pkg
 
 const (
 	Pi = 3.141592654
-	R = Pi / 2
+	R  = Pi / 2
 )
 
 const (
-	A = iota
-	B
-	C
-	D
+	K = iota
+	L
+	M
+	P
 )
 
 const beef = "beef"

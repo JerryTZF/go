@@ -7,7 +7,10 @@
  */
 package pkg
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // struct可以理解为轻量的(没有成员方法)类
 type Person struct {
@@ -138,4 +141,15 @@ func (s MyString) IsLargeString() bool {
 		return true
 	}
 	return false
+}
+
+// 如果类型定义了 String() 方法，它会被用在 fmt.Printf() 中生成默认的输出：等同于使用格式化描述符 %v 产生的输出。
+// 还有 fmt.Print() 和 fmt.Println() 也会自动使用 String() 方法
+func (p *Person) String() string {
+	return "(" + p.name + "_" + p.hobby + "_" + strconv.Itoa(p.age) + ")"
+}
+
+func StringParse() {
+	p := &Person{name: "Toms", age: 18, hobby: "Iris"}
+	fmt.Println(p)
 }
