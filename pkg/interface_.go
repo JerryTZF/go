@@ -50,6 +50,7 @@ func InterfaceDemo() {
 	}
 }
 
+// 一个接口被多个类型实现
 type ValueAble interface {
 	getValue() float64
 }
@@ -76,6 +77,21 @@ func showValue(a ValueAble) {
 }
 
 func ShowValue() {
+	// 实现接口的类型变量可以赋值给对应的接口类型
 	var o ValueAble = &A{Count: 10, Unit: 12.21}
 	showValue(o)
+}
+
+// 一个类型实现多个接口
+type AllImplement struct {
+	Side float64
+}
+
+// 实现两个接口
+func (i *AllImplement) Area() float64 {
+	return i.Side * i.Side
+}
+
+func (i *AllImplement) getValue() float64 {
+	return i.Side
 }
