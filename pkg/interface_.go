@@ -95,3 +95,36 @@ func (i *AllImplement) Area() float64 {
 func (i *AllImplement) getValue() float64 {
 	return i.Side
 }
+
+// 接口嵌套
+type I1 interface {
+	F1() string
+}
+
+type I2 interface {
+	F2() string
+}
+
+type I3 interface {
+	I1
+	I2
+	F3() string
+}
+
+// 类型断言
+// 一个接口变量可以使是何类型的值
+func IsInstance() {
+	var o Shaper = &Square{side: 5}
+	var a Shaper = &Rectangle{length: 10, weight: 23.22}
+	if t, ok := o.(*Square); ok {
+		fmt.Printf("the type of o is %T\n", t)
+	} else {
+		fmt.Printf("var o dose not contain a Square type")
+	}
+
+	if u, ok := a.(*Square); ok {
+		fmt.Printf("the type of o is %T\n", u)
+	} else {
+		fmt.Printf("var a dose not contain a Square type")
+	}
+}
