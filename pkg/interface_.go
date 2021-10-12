@@ -72,6 +72,7 @@ func (i *B) getValue() float64 {
 	return i.Price
 }
 
+// 只要是实现了 ValueAble 的类型都可以作为参数，类似Python的鸭子类型
 func showValue(a ValueAble) {
 	fmt.Printf("value of a is: %.2f", a.getValue())
 }
@@ -112,19 +113,30 @@ type I3 interface {
 }
 
 // 类型断言
-// 一个接口变量可以使是何类型的值
+// 因为在 Golang 中，`接口`变量的动态类型是变化的，有时我们需要知道一个接口 变量 的动态 类型 究竟是什么，
+// 这就需要使用类型断言，类型断言就是对接口变量的类型进行检查
 func IsInstance() {
 	var o Shaper = &Square{side: 5}
 	var a Shaper = &Rectangle{length: 10, weight: 23.22}
 	if t, ok := o.(*Square); ok {
-		fmt.Printf("the type of o is %T\n", t)
+		fmt.Printf("接口变量`o`的类型是：%T\n", t)
 	} else {
-		fmt.Printf("var o dose not contain a Square type")
+		fmt.Printf("接口变量`o`的类型不是*Square")
 	}
 
 	if u, ok := a.(*Square); ok {
-		fmt.Printf("the type of o is %T\n", u)
+		fmt.Printf("接口变量`u`的类型是：%T\n", u)
 	} else {
-		fmt.Printf("var a dose not contain a Square type")
+		fmt.Printf("接口变量`u`的类型不是*Square")
+	}
+
+	// switch-type 判断类型
+	switch a.(type) {
+	case *Square:
+		fmt.Println("a.type is *Square")
+	case *Rectangle:
+		fmt.Println("a.type is *Rectangle")
+	default:
+		fmt.Println("a.type is unknown")
 	}
 }
