@@ -154,3 +154,25 @@ func isValid(s string) bool {
 	}
 }
 
+// 496、下一个更大的元素
+func nextGreaterElement(nums1, nums2 []int) (res []int) {
+	var t, p bool
+	for i := 0; i < len(nums1); i++ {
+		t, p = false, false
+		for j := 0; j < len(nums2); j++ {
+			if nums1[i] == nums2[j] {
+				t = true
+			}
+			if t && nums2[j] > nums1[i] {
+				res = append(res, nums2[j])
+				p = true
+				break
+			}
+		}
+
+		if p == false {
+			res = append(res, -1)
+		}
+	}
+	return res
+}
