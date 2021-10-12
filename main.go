@@ -17,7 +17,7 @@ import (
 
 func main() {
 	//library.StrIndex()
-	pkg.Main()
+	pkg.Run()
 	//library.Json2Struct()
 	//demo()
 }

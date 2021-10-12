@@ -153,3 +153,83 @@ func StringParse() {
 	p := &Person{name: "Toms", age: 18, hobby: "Iris"}
 	fmt.Println(p)
 }
+
+// 结构体、集合、高阶函数
+type Any interface{}
+
+type Car struct {
+	Model        string
+	Manufacturer string
+	BuilderYear  int
+}
+
+type Cars []*Car
+
+// 对切片中的每辆车做处理:f(c)
+func (cs Cars) Process(f1 func(car *Car)) {
+	for _, c := range cs {
+		f1(c)
+	}
+}
+
+func (cs Cars) FindAll(f2 func(car *Car) bool) Cars {
+	cars := make([]*Car, 0)
+	cs.Process(func(c *Car) {
+		if f2(c) {
+			cars = append(cars, c)
+		}
+	})
+	return cars
+}
+
+func (cs Cars) Map(f func(car *Car) Any) []Any {
+	result := make([]Any, 0)
+	ix := 0
+	cs.Process(func(c *Car) {
+		result[ix] = f(c)
+		ix++
+	})
+	return result
+}
+
+func MakeSortedAppender(manufacturers []string) (func(car *Car), map[string]Cars) {
+	sortedCars := make(map[string]Cars)
+
+	for _, m := range manufacturers {
+		sortedCars[m] = make([]*Car, 0)
+	}
+	sortedCars["Default"] = make([]*Car, 0)
+
+	appender := func(c *Car) {
+		if _, ok := sortedCars[c.Manufacturer]; ok {
+			sortedCars[c.Manufacturer] = append(sortedCars[c.Manufacturer], c)
+		} else {
+			sortedCars["Default"] = append(sortedCars["Default"], c)
+		}
+	}
+
+	return appender, sortedCars
+}
+
+func Run() {
+	// make some cars
+	ford := &Car{"Fiesta", "Ford", 2008}
+	bmw := &Car{"XL 450", "BMW", 2011}
+	merc := &Car{"D600", "Mercedes", 2009}
+	bmw2 := &Car{"X 800", "BMW", 2008}
+
+	// query
+	allCars := Cars([]*Car{ford, bmw, merc, bmw2})
+	allNewBMWs := allCars.FindAll(func(car *Car) bool {
+		return (car.Manufacturer == "BMW") && (car.BuilderYear > 2010)
+	})
+	fmt.Println("AllCars: ", allCars)
+	fmt.Println("New BMWs: ", allNewBMWs)
+
+	manufacturers := []string{"Ford", "Aston Martin", "Land Rover", "BMW", "Jaguar"}
+	sortedAppender, sortedCars := MakeSortedAppender(manufacturers)
+	allCars.Process(sortedAppender)
+	fmt.Println("Map sortedCars: ", sortedCars)
+	BMWCount := len(sortedCars["BMW"])
+	fmt.Println("We have ", BMWCount, " BMWs")
+}
