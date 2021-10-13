@@ -8,11 +8,18 @@
 package main
 
 import (
+	"fmt"
 	"golang-study/pkg"
 )
 
 func main() {
 	//library.StrIndex()
-	pkg.Run()
-	//library.Json2Struct()
+	if r, e := pkg.ErrorReturned(0); e == nil {
+		fmt.Println(r)
+	} else {
+		fmt.Println(r, e)
+	}
+	a := pkg.DeferError_(10, 0)
+	fmt.Println(a)
+	//library.ListDemo()
 }
