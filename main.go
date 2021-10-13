@@ -9,6 +9,7 @@ package main
 
 import (
 	"fmt"
+	"golang-study/leetcode"
 	"golang-study/pkg"
 )
 
@@ -22,4 +23,5 @@ func main() {
 	a := pkg.DeferError_(10, 0)
 	fmt.Println(a)
 	//library.ListDemo()
+	leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
 }

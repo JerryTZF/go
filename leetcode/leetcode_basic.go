@@ -10,6 +10,7 @@ package leetcode
 import (
 	"math"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -175,4 +176,26 @@ func nextGreaterElement(nums1, nums2 []int) (res []int) {
 		}
 	}
 	return res
+}
+
+// 682、棒球比赛
+func CalPoints(ops []string) (r int) {
+	stack := make([]int, 0, len(ops))
+	for i := range ops {
+		switch ops[i] {
+		case "C":
+			stack = stack[:len(stack)-1]
+		case "D":
+			stack = append(stack, stack[len(stack)-1]*2)
+		case "+":
+			stack = append(stack, stack[len(stack)-1]+stack[len(stack)-2])
+		default:
+			p, _ := strconv.Atoi(ops[i])
+			stack = append(stack, p)
+		}
+	}
+	for _, v := range stack {
+		r += v
+	}
+	return r
 }
