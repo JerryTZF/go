@@ -7,13 +7,10 @@
  */
 package main
 
-import (
-	"fmt"
-	"golang-study/leetcode"
-)
+import "golang-study/library"
 
 func main() {
 	//library.ListDemo()
 	//leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
-	fmt.Println(leetcode.BackspaceCompare("a##c", "#a#c"))
+	library.GoCarbon()
 }
