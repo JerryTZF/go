@@ -199,3 +199,20 @@ func CalPoints(ops []string) (r int) {
 	}
 	return r
 }
+
+// 844、比较含退格的字符串
+func BackspaceCompare(s string, t string) bool {
+	f := func(str string) []byte {
+		bytes := make([]byte, 0)
+		for i := range str {
+			if str[i] == '#' && len(bytes) != 0 {
+				bytes = bytes[:len(bytes)-1]
+			}
+			if str[i] != '#' {
+				bytes = append(bytes, str[i])
+			}
+		}
+		return bytes
+	}
+	return string(f(s)) == string(f(t))
+}
