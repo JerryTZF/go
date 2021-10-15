@@ -216,3 +216,44 @@ func BackspaceCompare(s string, t string) bool {
 	}
 	return string(f(s)) == string(f(t))
 }
+
+// 1021、删除最外层括号
+func RemoveOuterParentheses(s string) (str string) {
+	stack, index := make([]byte, 0), 0
+	for k := range s {
+		stack = append(stack, s[k])
+		if s[k] == '(' {
+			index++
+		}
+		if s[k] == ')' {
+			index--
+		}
+		if index == 0 {
+			str += string(stack[1 : len(stack)-1])
+			// 这里每次都会清空切片,会造成性能损失
+			stack = []byte{}
+		}
+	}
+	return
+}
+
+// 1021、删除最外层括号
+// 力友方案
+func RemoveOuterParentheses_(s string) string {
+	var build strings.Builder
+	var cnt int
+	for _, l := range s {
+		if l == '(' {
+			if cnt > 0 {
+				build.WriteRune(l)
+			}
+			cnt++
+		} else {
+			if cnt > 1 {
+				build.WriteRune(l)
+			}
+			cnt--
+		}
+	}
+	return build.String()
+}

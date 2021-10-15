@@ -7,10 +7,14 @@
  */
 package main
 
-import "golang-study/library"
+import (
+	"fmt"
+	"golang-study/leetcode"
+)
 
 func main() {
 	//library.ListDemo()
 	//leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
-	library.GoCarbon()
+	t := leetcode.RemoveOuterParentheses("(()())(())(()(()))")
+	fmt.Println(t)
 }
