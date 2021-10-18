@@ -15,6 +15,6 @@ import (
 func main() {
 	//library.ListDemo()
 	//leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
-	t := leetcode.RemoveOuterParentheses("(()())(())(()(()))")
+	t := leetcode.BuildArray([]int{1, 2}, 4)
 	fmt.Println(t)
 }
