@@ -270,7 +270,7 @@ func BuildArray(target []int, n int) []string {
 					stack = append(stack, "Push")
 					// 移除命中的该元素,可以减少后续迭代次数
 					target = append(target[:k], target[k+1:]...)
-					// 标记为该元素存在
+					// 标记该元素存在
 					flag = true
 					// 进入下一次迭代
 					break
