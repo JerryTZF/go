@@ -80,6 +80,10 @@ type Stu struct {
 	Weight float64 `json:"weight,string"`   // 最终输出值的类型与定义不符需要转换时
 }
 
+func (s Stu) GetName(str string) string {
+	return s.Name + "_" + str
+}
+
 func RenameField() {
 	s := Stu{"Jerry", 12, "", 50.25}
 	if bytes, err := json.Marshal(s); err == nil {

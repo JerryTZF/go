@@ -60,5 +60,38 @@ func ReflectDemo() {
 	}
 
 	// 结构体反射
+	addressIns := Address{"protect", "zhanJiang", "China"}
+
+	structType := reflect.TypeOf(addressIns)
+
+	fmt.Println(structType.NumField()) // 返回结构体成员数量
+
+	for i := 0; i < structType.NumField(); i++ {
+		// 结构体字段类型
+		filedType := structType.Field(i)
+		fmt.Println(filedType)
+	}
+
+	// 获取结构体中的tag
+	stuIns := Stu{"Zhaofan Tian", 27, "PingPang", 54.5}
+	stuType := reflect.TypeOf(stuIns)
+	if fieldName, ok := stuType.FieldByName("Hobby"); ok {
+		fmt.Println(fieldName.Tag.Get("json"))
+	}
+
+	// 反射获取结构体字段值
+	stuValue := reflect.ValueOf(stuIns)
+	fmt.Println(stuValue.FieldByName("Age").Int())
+	fmt.Println(stuValue.FieldByName("Name").String())
+
+	// 反射修改结构体字段值
+	stuNameValue := reflect.ValueOf(&stuIns.Name)
+	stuNameValue.Elem().SetString("ZHAOFAN TIAN")
+	fmt.Println(stuIns)
+
+	// 通过反射调用结构体方法
+	f := stuValue.MethodByName("GetName")
+	res := f.Call([]reflect.Value{reflect.ValueOf("Jerry")})
+	fmt.Println(res)
 
 }
