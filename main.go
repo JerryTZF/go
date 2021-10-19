@@ -8,11 +8,14 @@
 package main
 
 import (
-	"golang-study/library"
+	"fmt"
+	"golang-study/leetcode"
 )
 
 func main() {
-	library.ReflectDemo()
+	//library.ReflectDemo()
+	n := leetcode.LengthOfLongestSubstring_("abcabcbb")
+	fmt.Println(n)
 	//leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
 	//t := leetcode.BuildArray([]int{1, 2}, 4)
 	//fmt.Println(t)

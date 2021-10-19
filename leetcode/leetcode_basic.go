@@ -285,3 +285,45 @@ func BuildArray(target []int, n int) []string {
 	}
 	return stack
 }
+
+// 3、无重复字符的最长子串(硬解)
+func LengthOfLongestSubstring(s string) int {
+	l, stack, length := 0, "", len(s)
+	for i := 0; i < length; i++ {
+		stack += string(s[i])
+		for j := i + 1; j < length; j++ {
+			if s[i] != s[j] && s[j] != s[j-1] && strings.IndexByte(stack, s[j]) == -1 {
+				stack += string(s[j])
+			} else {
+				break
+			}
+		}
+		if len(stack) > l {
+			l = len(stack)
+		}
+		stack = ""
+	}
+	return l
+}
+
+// 3、无重复字符的最长子串(官解)
+func LengthOfLongestSubstring_(s string) int {
+	m, n, rk, ans := map[byte]int{}, len(s), -1, 0
+	for i := 0; i < n; i++ {
+		if i != 0 {
+			delete(m, s[i-1])
+		}
+
+		for rk+1 < n && m[s[rk+1]] == 0 {
+			m[s[rk+1]]++
+			rk++
+		}
+		ans = func(a, b int) int {
+			if a < b {
+				return b
+			}
+			return a
+		}(ans, rk-i+1)
+	}
+	return ans
+}
