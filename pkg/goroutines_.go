@@ -7,6 +7,8 @@
  */
 package pkg
 
+// TODO 等完成Sync包的整理和学习后再补充下这里
+
 // 使用管道实现一个互斥锁
 type Empty interface{}
 type semaphore chan Empty
