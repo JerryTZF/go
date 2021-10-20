@@ -8,6 +8,7 @@
 package leetcode
 
 import (
+	"fmt"
 	"math"
 	"sort"
 	"strconv"
@@ -326,4 +327,48 @@ func LengthOfLongestSubstring_(s string) int {
 		}(ans, rk-i+1)
 	}
 	return ans
+}
+
+// 26、删除有序数组中的重复项(不允许出现拷贝,需要对原数组进行操作)
+// 自解
+func RemoveArrayDuplicates(nums []int) int {
+	n := recursive(nums)
+	fmt.Println(n)
+	return len(n)
+}
+
+// 递归会消耗较多的资源
+func recursive(n []int) []int {
+	flag := false
+	for k := range n {
+		if k == 0 {
+			continue
+		}
+		if n[k] == n[k-1] {
+			n = append(n[:k], n[k+1:]...)
+			flag = true
+			break
+		}
+	}
+	if flag {
+		return recursive(n)
+	}
+	return n
+}
+
+// 26、删除有序数组中的重复项(不允许出现拷贝,需要对原数组进行操作)
+// 官解
+func RemoveArrayDuplicates_(nums []int) int {
+	n := len(nums)
+	if n == 0 {
+		return 0
+	}
+	slow := 1
+	for fast := 1; fast < n; fast++ {
+		if nums[fast] != nums[fast-1] {
+			nums[slow] = nums[fast]
+			slow++
+		}
+	}
+	return slow
 }

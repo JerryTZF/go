@@ -14,7 +14,7 @@ import (
 
 func main() {
 	//library.ReflectDemo()
-	n := leetcode.LengthOfLongestSubstring_("abcabcbb")
+	n := leetcode.RemoveArrayDuplicates([]int{0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4})
 	fmt.Println(n)
 	//leetcode.CalPoints([]string{"5", "2", "C", "D", "+"})
 	//t := leetcode.BuildArray([]int{1, 2}, 4)
