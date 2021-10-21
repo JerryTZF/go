@@ -7,22 +7,54 @@
  */
 package pkg
 
-// TODO 等完成Sync包的整理和学习后再补充下这里
+import (
+	"fmt"
+	"time"
+)
 
-// 使用管道实现一个互斥锁
-type Empty interface{}
-type semaphore chan Empty
+// 并发
+// 指在同一时刻只能有一条指令执行，但多个进程指令被快速地轮换执行，使得在宏观上具有多个进程同时执行的效果
+// 并行
+// 并行是指在同一时刻，有多条指令在多个处理器上同时执行
 
-// 写入管道
-func (s semaphore) P(n int) {
-	e := new(Empty)
-	for i := 0; i < n; i++ {
-		s <- e
-	}
+// 协程相关
+func GoroutineDemo() {
+	c := make(chan string)
+	go func() {
+		c <- "No.1"
+	}()
+
+	fmt.Println(<-c)
+	close(c)
 }
 
-func (s semaphore) V(n int) {
-	for i := 0; i < n; i++ {
-		<-s
+func GoChan() {
+	// 协程间通信
+	c1 := make(chan int)
+	// 并发接收数据
+	go func(c chan int) {
+		for {
+			data := <-c
+			if data == -1 {
+				fmt.Println("Receive Over")
+				break
+			}
+			fmt.Println("Receive Data =", data)
+		}
+		c <- -1
+	}(c1)
+
+	// 投递数据
+	for i := 1; i <= 3; i++ {
+		// 将数据通过channel投送给numPrint
+		c1 <- i
 	}
+
+	time.Sleep(5 * time.Second)
+
+	// 通知 numPrint 结束循环
+	fmt.Println("Notify send over")
+	c1 <- -1
+
+	<-c1
 }
