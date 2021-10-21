@@ -148,7 +148,7 @@ func SyncOnce() {
 
 // 线程安全的map相关操作
 func SafeMap() {
-	m := sync.Map{}
+	m := &sync.Map{}
 
 	// 写
 	for i := 0; i < 5; i++ {
@@ -165,7 +165,7 @@ func SafeMap() {
 	}
 
 	// 存在指定的 key 则读取，否则写入
-	if v, ok := m.LoadOrStore("SYNC", "faker"); ok {
+	if v, ok := m.LoadOrStore("=SYNC=", "faker"); ok {
 		fmt.Println("这是写入操作，值为：", v)
 	} else {
 		fmt.Println("这是读取操作，值为：", v)

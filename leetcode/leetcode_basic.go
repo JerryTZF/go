@@ -369,3 +369,27 @@ func RemoveArrayDuplicates_(nums []int) int {
 	}
 	return slow
 }
+
+// 5、最长回文子串
+func LongestPalindrome(s string) string {
+	length, max, str := len(s), 0, string(s[0])
+	if length == 1 {
+		return s
+	}
+	for l := 2; l <= length; l++ {
+		for i := 0; i <= length-l; i++ {
+			ok, le := func(s string) (bool, int) {
+				for head, tail := 0, len(s)-1; head < tail; head, tail = head+1, tail-1 {
+					if s[head] != s[tail] {
+						return false, 0
+					}
+				}
+				return true, len(s)
+			}(s[i : l+i])
+			if ok && le > max {
+				max, str = le, s[i:l+i]
+			}
+		}
+	}
+	return str
+}
