@@ -14,5 +14,5 @@ import (
 func main() {
 	//s := leetcode.LongestPalindrome("abcda")
 	//fmt.Println(s)
-	pkg.GoChan()
+	pkg.ChanTimeout()
 }

@@ -59,4 +59,56 @@ func GoChan() {
 	<-c1
 }
 
-// TODO 只读管道、只写管道
+// 只读管道、只写管道
+func producer(sender chan<- int) {
+	for i := 0; i < 3; i++ {
+		sender <- i
+		// 休眠时会阻塞管道读取数据
+		time.Sleep(time.Duration(2) * time.Second)
+		fmt.Println("Send", i)
+	}
+	// <-sender (会报错)
+	close(sender)
+}
+
+func consumer(receive <-chan int) {
+	for n := range receive {
+		fmt.Println("Receive =", n)
+		// 休眠时会阻塞管道写入数据
+		time.Sleep(time.Duration(10) * time.Second)
+	}
+}
+
+func MQDemo() {
+	// 创建无缓冲管道(协程间通信是同步的)
+	//ch := make(chan int)
+	// 创建有缓冲管道(协程间通信是异步的)
+	ch_ := make(chan int, 3)
+	go producer(ch_)
+	consumer(ch_)
+}
+
+// 管道超时处理
+func ChanTimeout() {
+	ch := make(chan int)
+	quit := make(chan bool)
+
+	go func() {
+		for {
+			select {
+			case num := <-ch:
+				fmt.Println("received num = ", num)
+			case <-time.After(time.Second * 3):
+				fmt.Println("TimeOut")
+				quit <- true
+			}
+		}
+	}()
+
+	for i := 0; i < 3; i++ {
+		ch <- i
+		time.Sleep(4 * time.Second)
+	}
+	<-quit
+	fmt.Println("Over")
+}
