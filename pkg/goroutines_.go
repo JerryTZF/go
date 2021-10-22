@@ -9,6 +9,7 @@ package pkg
 
 import (
 	"fmt"
+	"sort"
 	"time"
 )
 
@@ -111,4 +112,21 @@ func ChanTimeout() {
 	}
 	<-quit
 	fmt.Println("Over")
+}
+
+// 例子：将一个长切片分为N块，交由N个协程完成排序，然后通过管道返回，然后合并为一个排好序的切片
+func SortByGoroutines() {
+	s := [][]int{{1, 3, 2, 5, 4, 6, 8, 7}, {9, 13, 10, 12, 11, 16, 15}, {21, 24, 23, 26, 25, 28, 27}}
+	ch := make(chan []int)
+	var rs []int
+	for _, v := range s {
+		go func(sk []int) {
+			sort.Sort(sort.IntSlice(sk))
+			ch <- sk
+		}(v)
+	}
+	for i := 0; i < len(s); i++ {
+		rs = append(rs, <-ch...)
+	}
+	fmt.Println(rs)
 }
