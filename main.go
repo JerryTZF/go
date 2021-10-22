@@ -8,11 +8,12 @@
 package main
 
 import (
-	"golang-study/pkg"
+	"fmt"
+	"golang-study/leetcode"
 )
 
 func main() {
 	//s := leetcode.LongestPalindrome("abcda")
 	//fmt.Println(s)
-	pkg.SortByGoroutines()
+	fmt.Println(leetcode.MyAtoi("00000-42a1234"))
 }
