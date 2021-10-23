@@ -130,3 +130,43 @@ func SortByGoroutines() {
 	}
 	fmt.Println(rs)
 }
+
+// 多协程完成任务，子协程异常要告知主协程，并安全退出。主协程要知道哪些协程协程发生异常。
+func Work() {
+	task := []string{"python", "php", "java", "golang", "html"}
+	ch := make(chan string)
+	errCh := make(chan interface{})
+	for _, v := range task {
+		// 投递任务
+		go func(lang string) {
+			defer func() {
+				if err := recover(); err != nil {
+					errCh <- err
+				}
+			}()
+			switch lang {
+			case "python":
+				ch <- "python"
+			case "php":
+				ch <- "php"
+			case "java":
+				ch <- "java"
+			case "golang":
+				ch <- "golang"
+			default:
+				panic("lang not found")
+			}
+		}(v)
+	}
+	for {
+		select {
+		case err := <-errCh:
+			fmt.Println(err)
+		case res := <-ch:
+			fmt.Println(res)
+		case <-time.After(time.Duration(3) * time.Second):
+			fmt.Println("Time out...")
+			break
+		}
+	}
+}
