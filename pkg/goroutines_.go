@@ -195,3 +195,25 @@ func OneByOne() {
 
 	time.Sleep(20 * time.Second)
 }
+
+// 模拟乒乓球
+func PingPong() {
+	table := make(chan int)
+	go player(table)
+	go player(table)
+
+	// 开球
+	table <- 0
+	time.Sleep(5 * time.Second)
+	fmt.Println("=====", <-table)
+}
+
+func player(table chan int) {
+	for {
+		ball := <-table
+		ball++
+		fmt.Println(ball)
+		time.Sleep(100 * time.Millisecond)
+		table <- ball
+	}
+}
