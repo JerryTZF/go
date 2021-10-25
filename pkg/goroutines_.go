@@ -170,3 +170,28 @@ func Work() {
 		}
 	}
 }
+
+// 两个协程交替打印1-20
+func OneByOne() {
+	c := make(chan int)
+	go func() {
+		for i := 0; i < 20; i++ {
+			c <- 0
+			if i%2 == 0 {
+				fmt.Println("协程1：", i)
+			}
+		}
+	}()
+
+	go func() {
+		for i := 0; i < 20; i++ {
+			<-c
+			time.Sleep(2 * time.Second)
+			if i%2 == 1 {
+				fmt.Println("协程2：", i)
+			}
+		}
+	}()
+
+	time.Sleep(20 * time.Second)
+}
