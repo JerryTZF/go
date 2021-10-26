@@ -8,6 +8,7 @@
 package library
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 )
@@ -130,4 +131,16 @@ func Commonly() {
 	fmt.Println("hello" + " world!")
 	// 字符串拼接
 	fmt.Println(string(append([]byte("hello"), " world!"...)))
+	// 字符串拼接
+	buf := new(bytes.Buffer)
+	buf.WriteString("hello")
+	buf.WriteString(" world!")
+	fmt.Println(buf.String())
+	// 拼接字符串
+	builder := new(strings.Builder)
+	builder.WriteString("hello")
+	builder.WriteString(" world!")
+	fmt.Println(builder.String())
+	//拼接字符串
+	fmt.Println(strings.Join([]string{"hello", " world!"}, ""))
 }

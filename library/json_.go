@@ -131,3 +131,7 @@ func Json2Struct() {
 		fmt.Println(s)
 	}
 }
+
+func Map2Json() {
+
+}
