@@ -79,12 +79,15 @@ func Get() {
 	}
 
 	q := req.URL.Query()
-	q.Add("unique", "2021-01-01 12:21:23")
+	q.Add("unique", "asd")
 	req.URL.RawQuery = q.Encode()
 
 	fmt.Println(req.URL.String())
 
 	response, err := http.DefaultClient.Do(req)
+
+	defer response.Body.Close()
+
 	if response.StatusCode == 200 {
 		body, _ := io.ReadAll(response.Body)
 		_ = ioutil.WriteFile("./captcha.png", body, 0666)
