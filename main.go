@@ -15,6 +15,6 @@ func main() {
 	//s := leetcode.LongestPalindrome("abcda")
 	//fmt.Println(s)
 	//fmt.Println(leetcode.MyAtoi("00000-42a1234"))
-	library.Run__()
+	library.Get()
 	//pkg.PingPong()
 }
