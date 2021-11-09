@@ -71,6 +71,34 @@ func ParseStringTime() {
 	fmt.Println(timeObj)
 }
 
+func Timer() {
+	// NewTimer 创建一个 Timer，它会在最少过去时间段 d 后到期，向其自身的 C 字段发送当时的时间
+	timer := time.NewTimer(time.Second * 2)
+	go func(t *time.Timer) {
+		for {
+			select {
+			case <-t.C:
+				fmt.Println(time.Now().Format(TimeFormat))
+				t.Reset(time.Second * 2)
+			}
+		}
+	}(timer)
+
+	time.Sleep(20 * time.Second)
+}
+
+func Ticker() {
+	// Ticker 包含一个通道字段C，每隔时间段 d 就向该通道发送当时系统时间。
+	ticker := time.NewTicker(time.Second * 2)
+	go func(t *time.Ticker) {
+		for range t.C {
+			fmt.Println(time.Now().Format(TimeFormat))
+		}
+	}(ticker)
+
+	time.Sleep(20 * time.Second)
+}
+
 func GoCarbon() {
 	// 今天日期
 	fmt.Println(carbon.Now().ToDateString()) // 2021-10-14

@@ -217,3 +217,35 @@ func player(table chan int) {
 		table <- ball
 	}
 }
+
+// 生产者、消费者模式
+func CP() {
+	message := make(chan int, 10)
+	flag := make(chan bool)
+
+	defer close(message)
+
+	// consumer
+	go func() {
+		ticker := time.NewTicker(1 * time.Second)
+		for _ = range ticker.C {
+			select {
+			case <-flag:
+				fmt.Println("child process interrupt...")
+				return
+			default:
+				fmt.Printf("send message: %d\n", <-message)
+			}
+		}
+	}()
+
+	// producer
+	for i := 0; i < 10; i++ {
+		message <- i
+	}
+
+	time.Sleep(5 * time.Second)
+	close(flag)
+	time.Sleep(1 * time.Second)
+	fmt.Println("main process exit!")
+}
