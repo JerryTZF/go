@@ -74,8 +74,8 @@ func Run__() {
 }
 
 func Get() {
-	url := "https://service.cqysda.com/admin/captcha.json"
-	req, err := http.NewRequest("GET", url, nil)
+	url_ := "https://service.cqysda.com/admin/captcha.json"
+	req, err := http.NewRequest("GET", url_, nil)
 	if err != nil {
 		panic(err)
 	}
