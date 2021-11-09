@@ -14,6 +14,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 type SayHello struct {
@@ -91,6 +93,76 @@ func Get() {
 	if response.StatusCode == 200 {
 		body, _ := io.ReadAll(response.Body)
 		_ = ioutil.WriteFile("./captcha.png", body, 0666)
+	} else {
+		fmt.Println(response.Header)
+	}
+}
+
+func UrlEncodePost() {
+	url_ := "https://service.cqysda.com"
+	response, err := http.Post(url_, "application/x-www-form-urlencoded", strings.NewReader("a=b"))
+	if err != nil {
+		panic(err)
+	}
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(response.Body)
+
+	if response.StatusCode == 200 {
+		body, _ := io.ReadAll(response.Body)
+		fmt.Println(string(body))
+	} else {
+		fmt.Println(response.Header)
+	}
+}
+
+func FormPost() {
+	url_ := "https://service.cqysda.com"
+	payload := url.Values{"key": {"val2"}, "key_bak": {"bak1"}}
+	response, err := http.PostForm(url_, payload)
+	if err != nil {
+		panic(err)
+	}
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(response.Body)
+
+	if response.StatusCode == 200 {
+		body, _ := io.ReadAll(response.Body)
+		fmt.Println(string(body))
+	} else {
+		fmt.Println(response.Header)
+	}
+}
+
+func JsonPost() {
+	url_ := "https://service.cqysda.com"
+	payload := strings.NewReader("{\"a\":{\"b\":[\"b1\",\"b2\",\"b3\"]},\"c\":{\"d\":\"e\"}}")
+	req, _ := http.NewRequest("POST", url_, payload)
+	req.Header.Add("Content-Type", "application/json")
+	response, err := http.DefaultClient.Do(req)
+	if err != nil {
+		panic(err)
+	}
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(response.Body)
+
+	if response.StatusCode == 200 {
+		body, _ := io.ReadAll(response.Body)
+		fmt.Println(string(body))
 	} else {
 		fmt.Println(response.Header)
 	}
