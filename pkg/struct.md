@@ -9,27 +9,51 @@
 ## 关于内嵌
 
 > 1、将一个类型A放入另一个类型(例入struct类型)B中，那么类似B继承了A
+> 2、类：提供一组 作用于 共同类型的方法集(所谓的隐式定义)
 
 > 下面模拟一个多重继承
 > ```go
 > package pkg
 > import "fmt"
 > 
-> type A struct {
->   name string
+> // ************
+> // 演示多继承
+> // ************
+> type Employee struct {
+>   Title  string
+>   Salary int
+> }
+>
+> type Son struct {
+>    Mother string
+>    Father string
+> }
+>    
+> type Jerry struct {
+>    Ability string
+>    Hobby   string
+> }
+>
+> type Me struct {
+>   *Employee
+>   *Jerry
+>   Son
 > }
 > 
-> type B struct{
->   brade string
+> func (j *Jerry) ChangeHobby(h string) {
+>   j.Hobby = h
 > }
-> 
-> type C struct {
->   A
->   *B
+>
+> func DemoForExtend() {
+>   e := &Employee{Title: "技术组长", Salary: 15000}
+>   j := &Jerry{Ability: "PHP", Hobby: "乒乓球"}
+>   s := Son{Mother: "王", Father: "田"} 
+>   me := &Me{e, j, s}
+>
+>   // 一定注意:这里不要并发修改hobby
+>   me.ChangeHobby("网球")
+>   j.ChangeHobby("不是网球")
+>   fmt.Println(me.Hobby)
 > }
-> 
-> func Demo()  {
->   a := &C{A{"Jerry"},&B{"Apple"}}
->   fmt.Println(a.brade)
-> }
+>   
 > ```
