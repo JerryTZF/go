@@ -8,7 +8,7 @@
 package main
 
 import (
-	"golang-study/library"
+	"golang-study/pkg"
 )
 
 func main() {
@@ -16,6 +16,6 @@ func main() {
 	//fmt.Println(s)
 	//fmt.Println(leetcode.MyAtoi("00000-42a1234"))
 	//library.JsonPost()
-	library.Ticker()
+	pkg.DemoForExtend()
 	//pkg.PingPong()
 }

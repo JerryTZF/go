@@ -233,3 +233,44 @@ func Run() {
 	BMWCount := len(sortedCars["BMW"])
 	fmt.Println("We have ", BMWCount, " BMWs")
 }
+
+// ************
+// 演示多继承
+// ************
+type Employee struct {
+	Title  string
+	Salary int
+}
+
+type Son struct {
+	Mother string
+	Father string
+}
+
+type Jerry struct {
+	Ability string
+	Hobby   string
+}
+
+type Me struct {
+	*Employee
+	*Jerry
+	Son
+}
+
+func (j *Jerry) ChangeHobby(h string) {
+	j.Hobby = h
+}
+
+func DemoForExtend() {
+	e := &Employee{Title: "技术组长", Salary: 15000}
+	j := &Jerry{Ability: "PHP", Hobby: "乒乓球"}
+	s := Son{Mother: "王", Father: "田"}
+
+	me := &Me{e, j, s}
+
+	// 一定注意:这里不要并发修改hobby
+	me.ChangeHobby("网球")
+	j.ChangeHobby("不是网球")
+	fmt.Println(me.Hobby)
+}
