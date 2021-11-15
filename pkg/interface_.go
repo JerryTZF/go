@@ -44,7 +44,7 @@ func InterfaceDemo() {
 	z := &Square{side: 5}
 
 	s := []Shaper{c, z}
-	// "多态"
+	// "多态" 即:多个实现接口的实例调用接口方法会表现不同的行为
 	for _, v := range s {
 		fmt.Println(v.Area())
 	}

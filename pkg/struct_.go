@@ -12,6 +12,9 @@ import (
 	"strconv"
 )
 
+// ***************
+// 结构体成员方法
+// ***************
 // struct可以理解为轻量的(没有成员方法)类
 type Person struct {
 	name  string
@@ -42,8 +45,10 @@ func CallMemberFunc() {
 	fmt.Println(walk)
 }
 
+// **************************************
 // 链表、二叉树等数据结构
 // 用法可以参考LeetCode的二叉树和链表相关算法
+// **************************************
 type TreeNode struct {
 	left  *TreeNode
 	data  int
@@ -104,7 +109,9 @@ func StructDemo() {
 	fmt.Println(s6)
 }
 
+// **************************
 // 结构体中的匿名字段、嵌套结构体
+// **************************
 type Inner struct {
 	int1 int
 	int
@@ -113,7 +120,7 @@ type Inner struct {
 
 // 类型的成员方法(除接口、指针外其他任一类型都可以有成员方法)
 // 1、 一个类型的成员方法是不允许重载的
-// 2、类型的方法必须要在同一个包内
+// 2、类型的方法必需 要在同一个包内
 func CallMemberFunc_() {
 	o1 := new(Inner)
 	o1.int = 10
