@@ -5,7 +5,7 @@
  * File: strings_.go
  * Desc: strings包常规操作
  */
-package library
+package main
 
 import (
 	"bytes"

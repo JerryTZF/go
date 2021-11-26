@@ -5,7 +5,7 @@
  * File: http_.go
  * Desc: net/http 标准库使用
  */
-package library
+package main
 
 import (
 	"fmt"

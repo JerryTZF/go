@@ -5,7 +5,7 @@
  * File: sort_.go
  * Desc: 排序的标准库
  */
-package library
+package main
 
 import (
 	"fmt"

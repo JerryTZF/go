@@ -5,7 +5,7 @@
  * File: json_.go
  * Desc: json 相关操作
  */
-package library
+package main
 
 import (
 	"encoding/json"

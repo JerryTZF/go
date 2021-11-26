@@ -5,7 +5,7 @@
  * File: strconv_.go
  * Desc: strconv包常规操作(字符串和基础数据类型转换)
  */
-package library
+package main
 
 import (
 	"fmt"
@@ -66,7 +66,7 @@ func ParseStringToOther() {
 
 func FormatToStringAppend() {
 	var sl []byte
-	sl = strconv.AppendInt(sl,42,10)
+	sl = strconv.AppendInt(sl, 42, 10)
 	fmt.Println(sl)
 }
 

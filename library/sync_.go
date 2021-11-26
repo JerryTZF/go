@@ -5,7 +5,7 @@
  * File: sync_.go
  * Desc: sync包的学习和整理
  */
-package library
+package main
 
 import (
 	"context"

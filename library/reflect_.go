@@ -5,7 +5,7 @@
  * File: reflect_.go
  * Desc:
  */
-package library
+package main
 
 import (
 	"fmt"

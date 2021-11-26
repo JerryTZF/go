@@ -5,7 +5,7 @@
  * File: time_.go
  * Desc:
  */
-package library
+package main
 
 import (
 	"fmt"
