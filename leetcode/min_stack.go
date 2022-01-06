@@ -5,7 +5,7 @@
  * File: min_stack.go
  * Desc: 155、最小栈
  */
-package leetcode
+package main
 
 import "math"
 

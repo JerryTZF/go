@@ -5,7 +5,7 @@
  * File: sort_by_channel.go
  * Desc: 1114、按序打印
  */
-package leetcode
+package main
 
 import (
 	"fmt"

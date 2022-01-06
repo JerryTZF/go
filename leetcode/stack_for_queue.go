@@ -5,7 +5,7 @@
  * File: stack_for_queue.go
  * Desc: 232、用栈实现队列
  */
-package leetcode
+package main
 
 type MyQueue struct {
 	inQueue, outQueue []int

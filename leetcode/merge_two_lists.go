@@ -5,7 +5,7 @@
  * File: merge_two_lists.go
  * Desc:
  */
-package leetcode
+package main
 
 // 21 合并两个有序链表
 type listNode struct {
@@ -39,4 +39,3 @@ func MergeTwoLists(l1 *listNode, l2 *listNode) *listNode {
 
 	return guard.Next
 }
-

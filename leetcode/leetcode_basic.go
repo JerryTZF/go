@@ -5,41 +5,13 @@
  * File: leetcode_basic.go
  * Desc:
  */
-package leetcode
+package main
 
 import (
 	"math"
-	"sort"
 	"strconv"
 	"strings"
 )
-
-// 7 整数反转
-func Reverse(x int) (r int) {
-	for x != 0 {
-		if r < math.MinInt32/10 || r > math.MaxInt32/10 {
-			return 0
-		}
-		l := x % 10
-		x /= 10
-		r = r*10 + l
-	}
-	return r
-}
-
-// 14 最长公共前缀
-func LongestCommonPrefix(s []string) string {
-	sort.Strings(s)
-	a, z := s[0], s[len(s)-1]
-	for i := len(a); i >= 0; i-- {
-		t := a[0:i]
-		if strings.Index(z, t) == 0 {
-			return t
-		}
-	}
-
-	return ""
-}
 
 // 13、罗马数字转整数
 func RomanToInt(s string) int {

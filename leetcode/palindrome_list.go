@@ -5,7 +5,7 @@
  * File: palindrome_list.go
  * Desc: 234、是否是回文链表
  */
-package leetcode
+package main
 
 // 是否是回文链表
 func isPalindromeList(l *listNode) bool {
