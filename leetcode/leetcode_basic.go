@@ -13,46 +13,6 @@ import (
 	"strings"
 )
 
-// 13、罗马数字转整数
-func RomanToInt(s string) int {
-	var n = 0
-	m := map[byte]int{'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-	for k := range s {
-		if m[s[k]] < m[s[k+1]] && k+1 < len(s) {
-			n -= m[s[k]]
-		} else {
-			n += m[s[k]]
-		}
-	}
-	return n
-}
-
-// 9、回文数
-func isPalindrome(x int) bool {
-	if x < 0 || (x%10 == 0 && x != 0) {
-		return false
-	}
-	r := 0
-	for x > r {
-		r = r*10 + x%10
-		x /= 10
-	}
-	return x == r || x == r/10
-}
-
-// 1、两数之和
-func twoSum(n []int, t int) []int {
-	for k, v := range n {
-		for i := k + 1; i < len(n); i++ {
-			if v+n[i] == t {
-				return []int{k, i}
-			}
-		}
-	}
-
-	return nil
-}
-
 // 1002、查找共用字符
 func CommonChars(s []string) (r []string) {
 	var a, n string
